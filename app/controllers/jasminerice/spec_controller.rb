@@ -6,8 +6,11 @@ module Jasminerice
     helper Jasminerice::HelperMethods rescue nil
     helper Jasminerice::SpecHelper rescue nil
 
-    before_filter { prepend_view_path Rails.root.to_s }
-
+    if Rails::VERSION::MAJOR >= 5
+      before_action { prepend_view_path Rails.root.to_s }
+    else
+      before_filter { prepend_view_path Rails.root.to_s }
+    end
     layout false
 
     def index
